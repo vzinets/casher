@@ -1,0 +1,24 @@
+.row {
+    width: 100%;
+    
+}
+
+
+.row__item {
+    border: 1px solid #131313;
+    line-height: 29px;
+    padding: 10px;
+    width: 25%;
+    font-size: var(--text-font);
+    word-wrap: break-word;
+    text-align: center;
+}
+
+.delete__button {
+    cursor: pointer;
+    font-size: 0;
+    background-color: transparent;
+    border: none;
+}
+
+

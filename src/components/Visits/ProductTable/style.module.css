@@ -1,0 +1,29 @@
+
+  
+  .button__action {
+    cursor: pointer;
+    font-size: 0px;
+    border: none;
+    background-color: transparent;
+    margin: auto;
+  }
+  
+  .button__column {
+    width: 40px;
+  }
+
+  .visits__table {
+    border-collapse: collapse;
+  }
+  
+  
+  
+  .visits__table td {
+    padding: 10px;
+    border: 1px solid var(--black);
+  }
+  
+  .table__title {
+    padding:10px 0 ;
+    font-size: 18px;
+  }

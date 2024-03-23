@@ -1,0 +1,9 @@
+.products__table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table__title {
+    font-size: var(--text-title);
+    padding-bottom: 30px;
+}

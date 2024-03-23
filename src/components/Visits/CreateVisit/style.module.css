@@ -1,0 +1,95 @@
+.popup__bg {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--blured);
+}
+
+.popup {
+  position: relative;
+  border-radius: 20px;
+  padding: 10px;
+  width: 95%;
+  height: 95%;
+  z-index: 2;
+  background-color: var(--popup-color);
+}
+
+.tables__wrapper{
+display: grid;
+padding-top: 50px;
+grid-template-columns: repeat(2, 1fr);
+gap: 10px;
+align-items: start;
+width: 100%;
+height: 100%;
+overflow-y: scroll;
+
+}
+
+.create__visit__button {
+  border: none;
+  width: 120px;
+  height: 40px;
+  border-radius: 7px;
+  font-size: 18px;
+  margin-bottom: 40px;
+  background-color: var(--popup-color);
+}
+
+.create__visit__button:hover {
+  color: var(--bg-color);
+}
+
+.visits__table {
+  border-collapse: collapse;
+}
+
+
+
+.visits__table td {
+  padding: 10px;
+  border: 1px solid var(--black);
+}
+
+.table__title {
+  padding:10px 0 ;
+  font-size: 18px;
+}
+
+.button__close {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  font-size: 0;
+  border: none;
+  background-color: transparent;
+}
+
+.button__action {
+  cursor: pointer;
+  font-size: 0px;
+  border: none;
+  background-color: transparent;
+  margin: auto;
+}
+
+.button__column {
+  width: 40px;
+}
+
+.button__submit { 
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 70px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+}
