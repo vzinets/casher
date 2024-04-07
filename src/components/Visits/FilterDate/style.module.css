@@ -1,0 +1,48 @@
+.input__wrapper {
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  position: relative;
+  z-index: 0;
+}
+
+.date {
+  width: 150px;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-right: 10px;
+  border: 1px solid var(--unfocused);
+  font-size: var(--text-small);
+  font-weight: var(--weight-light);
+  transition: all .3s;
+}
+
+.date:focus {
+   border: 1px solid var(--unfocused);
+
+}
+
+
+.reset__button {
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: var(--accent);
+  border: 1px solid var(--accent-border);
+  margin-right: 5px;
+  cursor: pointer;
+  color: var(--accent-border);
+  font-size: 14px;
+  font-weight: 500;
+  transition: all .3s;
+}
+
+.reset__button:last-child {
+  margin: 0;
+}
+
+.reset__button:hover {
+    border: 1px solid var(--accent);
+    background-color: var(--accent-border);
+    color: var(--accent);
+  }

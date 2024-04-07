@@ -26,59 +26,14 @@ export default function ProductProvider({ children }) {
     }
   }, []);
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  const handleSubmit = useCallback(async (formData) => {
-    try {
-      const response = await axios.post(URL, formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      return response;
-    } catch (error) {
-      console.error(error);
-    }
-  }, []);
-
-  const handleDelete = useCallback((id) => {
-    try {
-      const response = axios.delete(`${URL}/${id}`);
-      return response;
-    } catch (error) {
-      console.error(error);
-    }
-  }, []);
-
-  const handleEdit = useCallback(
-    (id, formData) => {
-      try {
-        const response = axios.put(`${URL}/${id}`, formData, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        fetchProducts();
-        return response;
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    [fetchProducts]
-  );
 
   const contextValue = useMemo(
     () => ({
       products,
       fetchProducts,
       error,
-      handleDelete,
-      handleSubmit,
-      handleEdit,
     }),
-    [products, fetchProducts, error, handleDelete, handleSubmit, handleEdit]
+    [products, fetchProducts, error]
   );
 
   return (

@@ -1,3 +1,7 @@
+.product__section {
+    margin-bottom: 150px;
+}
+
 .products__table {
     width: 100%;
     border-collapse: collapse;
@@ -5,5 +9,10 @@
 
 .table__title {
     font-size: var(--text-title);
-    padding-bottom: 30px;
+    font-weight: var(--weight-bold);
+    padding: 15px;
+    border-bottom: 2px solid var(--border-color);
+    color: var(--column-title);
+    text-align: left;
+
 }

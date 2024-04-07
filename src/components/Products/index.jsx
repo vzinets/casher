@@ -9,9 +9,11 @@ import { useProduct } from "../Context";
 
 const Products = () => {
 
- const {products, error} = useProduct()
+ const {products, error, fetchProducts} = useProduct()
 
-
+ useEffect(() => {
+  fetchProducts();
+}, []);
 
 
   if (error) {
@@ -19,7 +21,7 @@ const Products = () => {
   }
 
   return (
-    <section>
+    <section className={css.product__section}>
       <div className="container">
         <AddProduct />
         {error ? (
@@ -32,6 +34,8 @@ const Products = () => {
                 <th className={css.table__title}>Purchase price</th>
                 <th className={css.table__title}>Sale price</th>
                 <th className={css.table__title}>Profit</th>
+                <th className={css.table__title}>Delete</th>
+                <th className={css.table__title}>Edit</th>
               </tr>
             </thead>
             <tbody>

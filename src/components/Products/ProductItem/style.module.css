@@ -1,24 +1,30 @@
 .row {
     width: 100%;
-    
 }
 
 
 .row__item {
-    border: 1px solid #131313;
-    line-height: 29px;
-    padding: 10px;
+    border-bottom: 2px solid var(--border-color);
+    padding: 15px;
     width: 25%;
-    font-size: var(--text-font);
+    font-size: var(--text-small);
+    font-weight: var(--weight-normal);
     word-wrap: break-word;
     text-align: center;
+    text-align: left;
+}
+.row__item::first-letter {
+    text-transform: capitalize;
 }
 
 .delete__button {
-    cursor: pointer;
     font-size: 0;
-    background-color: transparent;
-    border: none;
+    padding: 5px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 

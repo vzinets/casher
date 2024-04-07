@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import css from "./style.module.css";
 import { IoAddCircleOutline } from "react-icons/io5";
@@ -6,10 +6,12 @@ import { IoMdCheckmark } from "react-icons/io";
 import { FaXmark } from "react-icons/fa6";
 import { useProduct } from "@/components/Context";
 import { MdEdit } from "react-icons/md";
-
+import classNames from "classnames";
+import axios from "axios";
+import { URL } from "@/helpers/constants";
 
 const AddProduct = ({ edit, product }) => {
-  const { handleSubmit, fetchProducts , handleEdit} = useProduct();
+  const { fetchProducts } = useProduct();
 
   const defaultData = edit
     ? {
@@ -25,17 +27,15 @@ const AddProduct = ({ edit, product }) => {
         sale_price: 0,
       };
 
-
-  const [formData, setFormData] = useState(defaultData);
-  console.log(formData);
-
-
-
   const [show, setShow] = useState(false);
+  const [formData, setFormData] = useState(defaultData);
+
+  const isDisabled =
+    !formData.name || formData.purchase_price - formData.sale_price >= 0;
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
-      const newValue = type === 'number'? +value : value;
+    const newValue = type === "number" ? +value : value;
 
     setFormData((prevData) => ({
       ...prevData,
@@ -43,13 +43,42 @@ const AddProduct = ({ edit, product }) => {
     }));
   };
 
+  const handleEdit = useCallback(
+    (id, formData) => {
+      try {
+        const response = axios.put(`${URL}/${id}`, formData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        fetchProducts();
+        return response;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [fetchProducts]
+  );
+
+  const handleSubmit = useCallback(async (formData) => {
+    try {
+      const response = await axios.post(URL, formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      return response;
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
   const onSubmit = async (e) => {
     e.preventDefault();
 
     if (edit) {
       const success = await handleEdit(defaultData.id, formData);
       if (success) {
-        console.log("Successfull post on MockAPI");
         setFormData((prevData) => ({
           id: prevData.id,
           name: prevData.name,
@@ -60,7 +89,6 @@ const AddProduct = ({ edit, product }) => {
     } else {
       const success = await handleSubmit(formData);
       if (success) {
-        console.log("Successfull post on MockAPI");
         setFormData(() => ({
           id: uuidv4(),
           name: "",
@@ -71,26 +99,20 @@ const AddProduct = ({ edit, product }) => {
     }
 
     fetchProducts();
-    handleShow()
+    handleShow();
   };
 
   const handleShow = () => {
     setShow(!show);
-    // setFormData(() => ({
-    //   id: uuidv4(),
-    //   name: "",
-    //   purchase_price: 0,
-    //   sale_price: 0,
-    // }));
   };
-
-  const isDisabled =
-    !formData.name || formData.purchase_price - formData.sale_price >= 0;
 
   return (
     <>
-      <button className={css.add__button} onClick={() => handleShow()}>
-        {edit ? <MdEdit size={30} /> : <IoAddCircleOutline size={30} />}
+      <button
+        className={`blue__button ${!edit ? css.add__button : css.edit__button}`}
+        onClick={() => handleShow()}
+      >
+        {edit ? <MdEdit size={30} /> : "Create product"}
       </button>
       {!show ? (
         ""
@@ -100,7 +122,7 @@ const AddProduct = ({ edit, product }) => {
             className={css.form__wrapper}
             onClick={(e) => e.stopPropagation()}
           >
-            <button onClick={handleShow} className={css.close__button}>
+            <button onClick={handleShow} className={classNames(css.close__button, 'red__button')}>
               <FaXmark size={30} />
               Close
             </button>
@@ -143,9 +165,8 @@ const AddProduct = ({ edit, product }) => {
                 />
               </label>
 
-              <button className={css.confirm__button} disabled={isDisabled}>
-                <IoMdCheckmark size={30} />
-                Add
+              <button className={classNames(css.confirm__button, 'blue__button')} disabled={isDisabled}>
+                {edit? 'Edit': 'Add'}
               </button>
             </form>
           </div>

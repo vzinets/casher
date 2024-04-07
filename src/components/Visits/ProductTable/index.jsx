@@ -1,7 +1,8 @@
 import React from "react";
 import css from "./style.module.css";
 import { useProduct } from "@/components/Context";
-import { IoIosAddCircle } from "react-icons/io";
+import { IoIosAdd } from "react-icons/io";
+import classNames from "classnames";
 
 const ProductTable = ({ handleVisit }) => {
   const { products, error } = useProduct();
@@ -12,6 +13,7 @@ const ProductTable = ({ handleVisit }) => {
         <tr>
           <th className={css.table__title}>Name</th>
           <th className={css.table__title}>Sale price</th>
+          <th className={css.table__title}>Add</th>
         </tr>
       </thead>
       <tbody>
@@ -21,10 +23,10 @@ const ProductTable = ({ handleVisit }) => {
             <td className={css.row__item}>{product.sale_price}</td>
             <td className={css.button__column}>
               <button
-                className={css.button__action}
+                className={classNames(css.button__add, "blue__button")}
                 onClick={() => handleVisit(product)}
               >
-                <IoIosAddCircle size={30} />
+                <IoIosAdd size={30} />
                 "Add"
               </button>
             </td>

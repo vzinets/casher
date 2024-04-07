@@ -1,0 +1,25 @@
+.footer {
+    height: 30px;
+    width: 100%;
+    background-color: var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.text__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
+}
+
+.footer__copyright {
+    margin-right: 40px;
+    color: var(--white);
+    font-size: var(--text-paragraph);
+    font-weight: var(--weight-normal);
+}

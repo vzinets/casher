@@ -1,27 +1,68 @@
 
   
-  .button__action {
-    cursor: pointer;
+  .button__delete {
     font-size: 0px;
-    border: none;
-    background-color: transparent;
-    padding: 5px;
+    padding: 0px;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .button__decrement {
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px;
+  }
+
+  .count__text {
+    width: 2ch;
+    text-align: center;
+  }
+
+  .button__increment {
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5px;
   }
   
-  .button__column {
-    width: 40px;
-  }
+  
+
 
   .visits__table {
     border-collapse: collapse;
+  } 
+  
+  .row {
+    border-bottom: 2px solid var(--border-color);
   }
+
+  .row__total {
+    border: 0;
+  }
+  
   
   
   
   .visits__table td {
     padding: 10px;
-    border: 1px solid var(--black);
-    text-align: center;
+    text-align: left;
+    font-size: var(--text-small);
+    font-weight: var(--weight-normal);
+    
+  }
+
+  .row__item::first-letter {
+    text-transform: capitalize;
   }
 
   .count__wrapper {
@@ -30,7 +71,11 @@
   }
   
   .table__title {
-    padding:10px 0 ;
-    font-size: 18px;
+    padding: 10px;
+    font-size: var(--text-title);
+    font-weight: var(--weight-bold);
+    border-bottom: 2px solid var(--border-color);
+    color: var(--column-title);
+    text-align: left;
   }
-  
+

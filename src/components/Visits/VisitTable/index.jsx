@@ -4,6 +4,7 @@ import { IoIosAddCircle } from "react-icons/io";
 import css from "./style.module.css";
 import { IoMdAdd } from "react-icons/io";
 import { FaMinus } from "react-icons/fa6";
+import classNames from "classnames";
 
 const VisitTable = ({ visit, setVisit, handleDelete }) => {
   const totalPrice = visit.reduce((prevValue, item) => {
@@ -42,6 +43,7 @@ const VisitTable = ({ visit, setVisit, handleDelete }) => {
           <th className={css.table__title}>Sale price</th>
           <th className={css.table__title}>Count</th>
           <th className={css.table__title}>Summary</th>
+          <th className={css.table__title}>Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -53,15 +55,15 @@ const VisitTable = ({ visit, setVisit, handleDelete }) => {
             <td className={css.row__item}>
               <div className={css.count__wrapper}>
                 <button
-                  className={css.button__action}
+                  className={classNames(css.button__decrement, "red__button")}
                   disabled={product.count <= 1}
                   onClick={() => decrement(product.id)}
                 >
                   <FaMinus size={20} />
                 </button>
-                {product.count}
+                <span className={css.count__text}>{product.count}</span>
                 <button
-                  className={css.button__action}
+                  className={classNames(css.button__increment, "blue__button")}
                   disabled={product.count >= 20}
                   onClick={() => increment(product.id)}
                 >
@@ -75,7 +77,7 @@ const VisitTable = ({ visit, setVisit, handleDelete }) => {
 
             <td className={css.button__column}>
               <button
-                className={css.button__action}
+                className={classNames(css.button__delete, "red__button")}
                 onClick={() => handleDelete(product.id)}
               >
                 <MdOutlineDeleteOutline size={30} />
@@ -84,7 +86,7 @@ const VisitTable = ({ visit, setVisit, handleDelete }) => {
             </td>
           </tr>
         ))}
-        <tr>
+        <tr className={css.row__total}>
           <td className={css.row__item}>Total</td>
           <td className={css.row__item}> {totalPrice}</td>
         </tr>

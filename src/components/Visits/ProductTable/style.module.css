@@ -1,11 +1,14 @@
 
   
-  .button__action {
-    cursor: pointer;
+  .button__add {
     font-size: 0px;
-    border: none;
-    background-color: transparent;
     margin: auto;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .button__column {
@@ -20,10 +23,41 @@
   
   .visits__table td {
     padding: 10px;
-    border: 1px solid var(--black);
+  }
+
+  .row {
+    border-bottom: 2px solid var(--border-color);
   }
   
   .table__title {
-    padding:10px 0 ;
-    font-size: 18px;
+    padding: 10px;
+    font-size: var(--text-title);
+    font-weight: var(--weight-bold);
+    border-bottom: 2px solid var(--border-color);
+    color: var(--column-title);
+    text-align: left;
+  }
+
+  .row__item {
+    padding: 15px;
+    font-size: var(--text-small);
+    font-weight: var(--weight-normal);
+  }
+
+  .row__item::first-letter {
+    text-transform: capitalize;
+  }
+
+
+  .row__item:nth-child(1) {
+    width: 65%;
+  }
+
+  .row__item:nth-child(2) {
+    width: 25%;
+  }
+
+  .row__item:nth-child(3) {
+    width: 10%;
+    
   }
