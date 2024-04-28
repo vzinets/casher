@@ -1,0 +1,36 @@
+li {
+  margin: 10px;
+  font-size: 18px;
+  
+
+
+}
+h3 {
+  margin: 15px 0 15px 0;
+  font-size: 24px;
+}
+h2{
+  font-size: 28px;
+}
+ul {
+  padding-left: 30px;
+}
+
+ol {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+.instruction__wraper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom:30px ;
+}
+.first__li{
+  background-color: rgba(255, 255, 255, 0.517);
+  padding: 5px 15px;
+  border-radius:15px ;
+  backdrop-filter: blur(10px);
+
+}

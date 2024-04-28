@@ -6,6 +6,10 @@ import { useProduct } from "@/components/Context";
 import { MdEdit } from "react-icons/md";
 import AddProduct from "../AddProduct";
 import classNames from "classnames";
+import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
+import { URL } from "@/helpers/constants";
+import { BsQuestionCircle } from "react-icons/bs";
 
 const ProductItem = ({ product }) => {
   const { name, purchase_price, sale_price, date, id } = product;
@@ -13,26 +17,46 @@ const ProductItem = ({ product }) => {
 
   const { fetchProducts } = useProduct();
 
-  
-
   const handleDelete = useCallback((id) => {
     try {
       const response = axios.delete(`${URL}/${id}`);
+
       return response;
     } catch (error) {
       console.error(error);
     }
   }, []);
 
-  const onDelete = async () => {
-    const isDelete = confirm("Are you sure?");
-    if (isDelete) {
-      const response = await handleDelete(id);
-      if (response.status >= 200 && response.status < 300) {
-        fetchProducts();
-      }
+  const onConfirm = async (t) => {
+    toast.dismiss(t.id);
+    const response = await handleDelete(id);
+    
+    if (response.status >= 200 && response.status < 300) {
+      fetchProducts();
+      toast.success("Deleted successfully!");
     }
   };
+
+  const onDelete = () => {
+    toast(
+      (t) => (
+        <div className={css.toaster}>
+          <h5 className={css.toaster__text}>Are you sure you want to delete "{name}"?</h5>
+          <div className={css.toaster__button__wrapper}><button className={classNames("blue__button", css.toaster__button)} onClick={() => onConfirm(t)}>
+            Confirm
+          </button>
+          <button className={classNames("red__button", css.toaster__button)} onClick={() => toast.dismiss(t.id)}>
+            Cancel
+          </button></div>
+        </div>
+      ),
+      {
+        icon: <BsQuestionCircle size={20} />,
+        duration: 10000,
+      }
+    );
+  };
+
   return (
     <>
       <tr className={css.row}>
@@ -41,9 +65,14 @@ const ProductItem = ({ product }) => {
         <td className={css.row__item}>{sale_price}</td>
         <td className={css.row__item}>{profit}</td>
         <td className={css.row__item}>
-          <button className={classNames('red__button', css.delete__button)} onClick={onDelete}>
-            Delete<MdDeleteOutline size={30} />
+          <button
+            className={classNames("red__button", css.delete__button)}
+            onClick={onDelete}
+          >
+            Delete
+            <MdDeleteOutline size={30} />
           </button>
+         
         </td>
         <td className={css.row__item}>
           <AddProduct edit product={product} />

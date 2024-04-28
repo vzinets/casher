@@ -1,14 +1,14 @@
 import React, { useCallback, useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import css from "./style.module.css";
-import { IoAddCircleOutline } from "react-icons/io5";
-import { IoMdCheckmark } from "react-icons/io";
 import { FaXmark } from "react-icons/fa6";
 import { useProduct } from "@/components/Context";
 import { MdEdit } from "react-icons/md";
 import classNames from "classnames";
 import axios from "axios";
 import { URL } from "@/helpers/constants";
+import PopUp from "@/components/ui/PopUp";
+import toast, { Toaster } from "react-hot-toast";
 
 const AddProduct = ({ edit, product }) => {
   const { fetchProducts } = useProduct();
@@ -23,25 +23,9 @@ const AddProduct = ({ edit, product }) => {
     : {
         id: uuidv4(),
         name: "",
-        purchase_price: 0,
-        sale_price: 0,
+        purchase_price: "",
+        sale_price: "",
       };
-
-  const [show, setShow] = useState(false);
-  const [formData, setFormData] = useState(defaultData);
-
-  const isDisabled =
-    !formData.name || formData.purchase_price - formData.sale_price >= 0;
-
-  const handleChange = (e) => {
-    const { name, value, type } = e.target;
-    const newValue = type === "number" ? +value : value;
-
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: newValue,
-    }));
-  };
 
   const handleEdit = useCallback(
     (id, formData) => {
@@ -52,6 +36,7 @@ const AddProduct = ({ edit, product }) => {
           },
         });
         fetchProducts();
+
         return response;
       } catch (error) {
         console.error(error);
@@ -59,6 +44,25 @@ const AddProduct = ({ edit, product }) => {
     },
     [fetchProducts]
   );
+
+  const [show, setShow] = useState(false);
+  const [formData, setFormData] = useState(defaultData);
+
+  const isDisabled =
+    !formData.name || formData.purchase_price - formData.sale_price >= 0;
+
+  const handleChange = (e) => {
+    const { name, value, type } = e.target;
+    const newValue = type === "number" && value.length > 0 ? +value : value;
+
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: newValue,
+    }));
+  };
+  const handleShow = () => {
+    setShow(!show);
+  };
 
   const handleSubmit = useCallback(async (formData) => {
     try {
@@ -77,33 +81,41 @@ const AddProduct = ({ edit, product }) => {
     e.preventDefault();
 
     if (edit) {
-      const success = await handleEdit(defaultData.id, formData);
-      if (success) {
-        setFormData((prevData) => ({
-          id: prevData.id,
-          name: prevData.name,
-          purchase_price: prevData.purchase_price,
-          sale_price: prevData.sale_price,
-        }));
+      try {
+        const success = await handleEdit(defaultData.id, formData);
+        if (success) {
+          setFormData((prevData) => ({
+            id: prevData.id,
+            name: prevData.name,
+            purchase_price: prevData.purchase_price,
+            sale_price: prevData.sale_price,
+          }));
+          handleShow();
+          toast.success("successfully edited!");
+        }
+      } catch (error) {
+        handleShow();
+        toast.error("edit failed!");
       }
     } else {
-      const success = await handleSubmit(formData);
-      if (success) {
-        setFormData(() => ({
-          id: uuidv4(),
-          name: "",
-          purchase_price: 0,
-          sale_price: 0,
-        }));
+      try {
+        const success = await handleSubmit(formData);
+        if (success) {
+          setFormData(() => ({
+            id: uuidv4(),
+            name: "",
+            purchase_price: 0,
+            sale_price: 0,
+          }));
+          fetchProducts();
+          handleShow();
+          toast.success("successfully added");
+        }
+      } catch (error) {
+        handleShow();
+        toast.error("add failed!");
       }
     }
-
-    fetchProducts();
-    handleShow();
-  };
-
-  const handleShow = () => {
-    setShow(!show);
   };
 
   return (
@@ -114,15 +126,17 @@ const AddProduct = ({ edit, product }) => {
       >
         {edit ? <MdEdit size={30} /> : "Create product"}
       </button>
-      {!show ? (
-        ""
-      ) : (
+
+      <PopUp isOpen={show} setIsOpen={setShow}>
         <div className={css.form__bg} onClick={handleShow}>
           <div
             className={css.form__wrapper}
             onClick={(e) => e.stopPropagation()}
           >
-            <button onClick={handleShow} className={classNames(css.close__button, 'red__button')}>
+            <button
+              onClick={handleShow}
+              className={classNames(css.close__button, "red__button")}
+            >
               <FaXmark size={30} />
               Close
             </button>
@@ -165,13 +179,16 @@ const AddProduct = ({ edit, product }) => {
                 />
               </label>
 
-              <button className={classNames(css.confirm__button, 'blue__button')} disabled={isDisabled}>
-                {edit? 'Edit': 'Add'}
+              <button
+                className={classNames(css.confirm__button, "blue__button")}
+                disabled={isDisabled}
+              >
+                {edit ? "Edit" : "Add"}
               </button>
             </form>
           </div>
         </div>
-      )}
+      </PopUp>
     </>
   );
 };

@@ -20,7 +20,8 @@
   --white: #ffffff;
   --blured: rgba(0, 0, 0, 0.5);
   --unfocused: #292d32;
-
+  --disbled-bg: #E5E5E5;
+  --disabled-color: #B1B1B1;
 
 }
 
@@ -39,7 +40,9 @@ body {
 
 body {
   background-color: var(--bg-color);
-  position: relative;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 a {
@@ -84,7 +87,7 @@ body::-webkit-scrollbar-thumb {
 .blue__button,
 .blue__button a {
   font-size: var(--text-small);
-  font-weight: var(--weight-normal);
+  font-weight: var(--weight-light);
   padding: 5px 10px;
   border-radius: 5px;
   background-color: var(--accent);
@@ -104,7 +107,7 @@ body::-webkit-scrollbar-thumb {
 .red__button,
 .red__button a {
   font-size: var(--text-small);
-  font-weight: var(--weight-normal);
+  font-weight: var(--weight-light);
   color: var(--red);
   background-color: var(--light-red);
   border: 1px solid var(--red);
@@ -121,6 +124,19 @@ body::-webkit-scrollbar-thumb {
   color: var(--light-red);
   background-color: var(--red);
   border: 1px solid var(--light-red);
+}
+
+.red__button:disabled,
+.blue__button:disabled,
+.blue__button:disabled a,
+.red__button:disabled a {
+
+  color: var(--disabled-color);
+  background-color: var(--disbled-bg);
+  border: 1px solid var(--disabled-color);
+  transition: all .3s;
+  cursor: not-allowed;
+
 }
 
 @media (prefers-color-scheme: dark) {

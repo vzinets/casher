@@ -3,8 +3,10 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
+  padding-top: 60px;
   min-height: 100vh;
+  background: rgb(127,159,255);
+  background: linear-gradient(0deg, rgba(127,159,255,1) 0%, rgba(140,187,215,1) 33%, rgba(155,234,255,1) 70%, rgba(181,242,255,1) 100%);
 }
 
 .description {

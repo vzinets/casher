@@ -19,18 +19,17 @@
   height: 90%;
   z-index: 3;
   background-color: var(--bg-color);
+  overflow-y: scroll;
   box-shadow: 0 60px 80px rgba(0,0,0,0.60), 0 45px 26px rgba(0,0,0,0.14);
 }
 
 .tables__wrapper{
 display: grid;
-padding-top: 50px;
 grid-template-columns: repeat(2, 1fr);
 gap: 10px;
 align-items: start;
 width: 100%;
 height: 100%;
-overflow-y: scroll;
 
 }
 
@@ -63,10 +62,14 @@ overflow-y: scroll;
   font-size: var(--text-paragraph);
 }
 
+.top__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  margin-bottom: 20px;
+}
+
 .button__close {
-  position: absolute;
-  top: 20px;
-  left: 20px;
   font-size: 0;
   padding: 0;
 }
@@ -84,9 +87,7 @@ overflow-y: scroll;
 }
 
 .date__wrapper {
-  position: absolute;
-  top: 20px;
-  right: 110px;
+margin-left: auto;
 }
 
 .date {
@@ -101,9 +102,7 @@ overflow-y: scroll;
   border: 1px solid var(--unfocused);
 }
 .button__submit { 
-  position: absolute;
-  top: 20px;
-  right: 20px;
+  margin: 0 20px;
   height: 30px;
 
 }

@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import css from "./style.module.css";
 import { useProduct } from "@/components/Context";
 import { IoIosAdd } from "react-icons/io";
 import classNames from "classnames";
 
 const ProductTable = ({ handleVisit }) => {
-  const { products, error } = useProduct();
+  const { products, fetchProducts, error } = useProduct();
+
+  useEffect(() => {
+    if (!products.length) {
+        fetchProducts();
+    }
+  }, []);
 
   return (
     <table className={css.visits__table}>
